@@ -16,13 +16,13 @@ export const getFlashcards = () => {
         });
 }
 
-const mockFlashcard = {
-    word: "zamek",
-    translations: ["castle", "lock"]
-}
+// const mockFlashcard = {
+//     word: "zamek",
+//     translations: ["castle", "lock"]
+// }
 
-export const saveFlashcard = () => {
-    axios.post(`${apiUrl}/flashcard`, mockFlashcard)
+export const postFlashcard = (flashcard) => {
+    axios.post(`${apiUrl}/flashcard`, flashcard)
         .then(response => {
             console.log(response.data)
             // return response.data
@@ -41,7 +41,7 @@ const mockFlashcardUpdate = {
     }
 }
 
-export const updateFlashcard = () => {
+export const putFlashcard = () => {
     axios.put(`${apiUrl}/flashcard`, mockFlashcardUpdate)
         .then(response => {
             console.log(response.data)
