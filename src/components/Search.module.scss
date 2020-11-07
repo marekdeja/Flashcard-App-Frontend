@@ -1,0 +1,70 @@
+@import "../common/colors.scss";
+
+.search {
+  margin: 10px 10px;
+  .searchHeader {
+    text-align: center;
+    .title {
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+
+    input {
+      margin-top: 10px;
+      outline-style: none;
+      padding: 7px 15px;
+      min-width: 100px;
+      max-width: 500px;
+      border-radius: 25px;
+      border: 1px solid rgba(0, 0, 0, 0.2);
+    }
+
+    button {
+      margin-left: 20px;
+      border-radius: 100px;
+      color: white;
+      background-color: $secondaryColor;
+      padding: 15px;
+      border: 1px solid rgba(0, 0, 0, 0.2);
+      font-weight: bold;
+      font-size: 1.1rem;
+      outline-style: none;
+      &:hover {
+        background-color: $mainColor;
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+.resultsContainer {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.flashcard {
+  position: relative;
+  padding: 10px 5px;
+  border: 1px solid black;
+  margin: 10px auto 15px auto;
+  width: 500px;
+  background-color: $flashcardBackground;
+  border: 0;
+  border-radius: 10px;
+  .flashcardNumber {
+    position: absolute;
+    left: -10px;
+    top: 0px;
+    width: 20px;
+    height: 20px;
+    font-size: smaller;
+    border-radius: 50%;
+    background-color: $flashcardResultNumber;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .word {
+    font-weight: bold;
+  }
+}

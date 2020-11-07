@@ -1,4 +1,3 @@
-import { getTranslation } from './services/api/dictionaryApi';
 import {
   BrowserRouter as Router,
   Switch,
@@ -6,30 +5,31 @@ import {
   Link
 } from "react-router-dom";
 import { Search } from './components/Search'
+import { Flashcards } from './components/Flashcards'
+import styles from './App.module.scss'
 
 function App() {
-
-  getTranslation()
+ 
   return (
     <div className="App">
-      <Router>
-
-        <header className="App-header">
-          Flashcard Game
-      </header>
-        <div>
-          <Link to="/search">Search</Link>
-          <Link to="/flashcards">Flashcards</Link>
-          <Link to="/game">Game</Link>
-
-        </div>
+      <Router >
+        <header>
+          <div className={styles.title}>
+            <div className={styles.titleText} ><Link to="/search">Flashcard Game</Link></div>
+          </div>
+          <div className={styles.menu}>
+            <Link to="/search"><div>Search</div></Link>
+            <Link to="/flashcards"><div>Flashcards</div></Link>
+            <Link to="/game"><div>Game</div></Link>
+          </div>
+        </header>
 
         <Switch>
           <Route path="/search">
             <Search />
           </Route>
           <Route path="/flashcards">
-            {/* <Flashcards /> */}Flashcards
+            <Flashcards />
           </Route>
           <Route path="/game">
             {/* <Game /> */}Game

@@ -6,9 +6,8 @@ const { REACT_APP_API_REMOTE } = process.env;
 const apiUrl = process.env.NODE_ENV === 'development' ? REACT_APP_API_LOCAL : REACT_APP_API_REMOTE;
 
 export const getFlashcards = () => {
-    axios.get(`${apiUrl}/flashcard`)
+    return axios.get(`${apiUrl}/flashcard`)
         .then(response => {
-            console.log(response.data)
             return response.data
         })
         .catch(error => {
@@ -52,12 +51,9 @@ export const putFlashcard = () => {
         });
 }
 
-const mockFlashcardDelete = {
-    flashcardId: "5f9dc57c9b03f745140be8e3"
-}
 
-export const deleteFlashcard = () => {
-    axios.delete(`${apiUrl}/flashcard`, { data: mockFlashcardDelete })
+export const deleteFlashcard = (flashcardId) => {
+    axios.delete(`${apiUrl}/flashcard`, { data: {flashcardId} })
         .then(response => {
             console.log(response.data)
             // return response.data

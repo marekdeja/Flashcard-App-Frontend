@@ -1,0 +1,55 @@
+@import "./common/colors.scss";
+
+html {
+  overflow-y: scroll;
+}
+
+header {
+  display: flex;
+  margin: 0;
+  padding: 10px 20px;
+  color: white;
+  background-color: $mainColor;
+}
+.title {
+//   margin-left: 50px;
+  width: 30%;
+  transform: translate(-1%, -1%);
+  font-size: 20px;
+  letter-spacing: 0.1em;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: white;
+  text-shadow: 3px 3px $secondaryColor, 4px 4px #000000;
+  .titleText:hover {
+    cursor: default;
+    user-select: none;
+  }
+}
+
+.titleText {
+  a {
+    text-decoration: none;
+    color: white;
+  }
+}
+.menu {
+  width:40%;
+  display: flex;
+  justify-content: center;
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  div {
+    padding: 5px 10px;
+    background-color: $secondaryColor;
+    border-radius: 5px;
+    text-decoration: none;
+    margin: 0 10px;
+    &:hover {
+      background-color: $hover;
+    }
+  }
+}

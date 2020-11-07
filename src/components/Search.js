@@ -1,12 +1,13 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { getTranslation } from '../services/api/dictionaryApi'
 import { postFlashcard } from '../services/api/flashcardApi'
+import styles from './Search.module.scss'
 
 export const Search = () => {
-    const [searchedWord, setSearchWord] = useState("here")
+    const [searchedWord, setSearchWord] = useState("")
     const [keyWord, setKeyWord] = useState()
-    const [hits, setHits] = useState([])
 
+const [allTranslations, setAllTranslations] = useState([])
 
     const handleSearchChange = (event) => {
         setSearchWord(event.target.value)
@@ -14,14 +15,35 @@ export const Search = () => {
 
     const handleSumbit = async (event) => {
         event.preventDefault()
-        setHits(undefined)
         const translation = await getTranslation(searchedWord)
         setKeyWord(searchedWord)
+        let translationHits = []
         if (translation.length > 0) {
-            const translationHits = translation[0].hits
-            setHits(translationHits)
+            translationHits = translation[0].hits
         }
+        gatherAllTranslations(translationHits);
 
+    }
+
+    const gatherAllTranslations = (hits) =>{
+        const allTranslationsArray = []
+        for (let i = 0; i < hits.length; i++) {
+            const roms = hits[i].roms
+
+            for (let j = 0; j < roms.length; j++) {
+                const arabs = roms[j].arabs
+
+                for (let k = 0; k < arabs.length; k++) {
+                    const translations = arabs[k].translations
+
+                    for (let l = 0; l < translations.length; l++) {
+                        allTranslationsArray.push(translations[l])
+                    }
+                }
+            }
+
+        }
+        setAllTranslations(allTranslationsArray)
     }
 
     const saveFlashcard = (allTranslations, index) => {
@@ -35,43 +57,42 @@ export const Search = () => {
     }
 
     const printTranslations = () => {
-        let allTranslations = []
-        for (let i = 0; i < hits.length; i++) {
-            const roms = hits[i].roms
-
-            for (let j = 0; j < roms.length; j++) {
-                const arabs = roms[j].arabs
-
-                for (let k = 0; k < arabs.length; k++) {
-                    const translations = arabs[k].translations
-
-                    for (let l = 0; l < translations.length; l++) {
-                        allTranslations.push(translations[l])
-                    }
-                }
-            }
-
-        }
-        return allTranslations.map((value, index) => <p><span dangerouslySetInnerHTML={{ __html: value.source.replace(/(<([^>]+)>)/ig, '') }} />
-         ---> <span dangerouslySetInnerHTML={{ __html: value.target.replace(/(<([^>]+)>)/ig, '') }} /><button onClick={() => saveFlashcard(allTranslations, index)} id={"button"+index}>Add Flashcard</button><strong><span id={'added' + index}></span></strong></p>)
+       
+        return allTranslations.map((value, index) =>
+            <div className={styles.flashcard}>
+                <div className={styles.flashcardNumber}>{index + 1}</div>
+                <div className={styles.textContainer}>
+                <div className={styles.word} dangerouslySetInnerHTML={{ __html: value.source.replace(/(<([^>]+)>)/ig, '') }} />
+                <div className={styles.translation} dangerouslySetInnerHTML={{ __html: value.target.replace(/(<([^>]+)>)/ig, '') }} />
+                </div>
+                <div>
+                <button onClick={() => saveFlashcard(allTranslations, index)} id={"button" + index}>Add Flashcard</button>
+                <strong><span id={'added' + index}></span></strong>
+                </div>
+                
+            </div>)
     }
 
 
+
     return (
-        <div>
-            <div>Search flashcard</div>
-            <form className="searchForm" onSubmit={handleSumbit}>
-                <input value={searchedWord} onChange={handleSearchChange}></input>
-                <p>
-                    <button type="submit" >Search</button>
-                </p>
-            </form>
-            <p>
-                Results {keyWord && <span>for &quot;<strong>{keyWord}</strong>&quot;</span>} :
-            </p>
-            <p>
-                {hits && hits.length > 0 && printTranslations()}
-            </p>
+        <div className={styles.search}>
+            <div className={styles.searchHeader}>
+                <div className={styles.title}>Search translation</div>
+                <form className="searchForm" onSubmit={handleSumbit}>
+                    <input value={searchedWord} onChange={handleSearchChange} placeholder="Search for ..."></input>
+                    <button type="submit" className={styles.buttonSearch}>Go!</button>
+                </form>
+            </div>
+
+            <div className={styles.resultsContainer}>          
+                <div className={styles.resultsTitle} onClick={()=>console.log(allTranslations)}>
+                {keyWord && <span>Results ({allTranslations.length}) for &quot;<strong>{keyWord}</strong>&quot;: </span>}
+                    </div>
+                <div className={styles.resultsOutput}>
+                    {allTranslations && allTranslations.length > 0 && printTranslations()}
+                </div>
+            </div>
         </div>
     )
 }
