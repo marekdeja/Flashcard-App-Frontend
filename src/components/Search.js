@@ -21,12 +21,12 @@ const [allTranslations, setAllTranslations] = useState([])
         if (translation.length > 0) {
             translationHits = translation[0].hits
         }
-        gatherAllTranslations(translationHits);
-
+        translationHits[0] && translationHits[0].roms ? gatherAllTranslations(translationHits) : setAllTranslations([])
     }
 
     const gatherAllTranslations = (hits) =>{
         const allTranslationsArray = []
+        
         for (let i = 0; i < hits.length; i++) {
             const roms = hits[i].roms
 
@@ -66,7 +66,8 @@ const [allTranslations, setAllTranslations] = useState([])
                 <div className={styles.translation} dangerouslySetInnerHTML={{ __html: value.target.replace(/(<([^>]+)>)/ig, '') }} />
                 </div>
                 <div>
-                <button onClick={() => saveFlashcard(allTranslations, index)} id={"button" + index}>Add Flashcard</button>
+                {/* <button onClick={() => saveFlashcard(allTranslations, index)} id={"button" + index}>Add Flashcard</button> */}
+                <div className={styles.plusButton}>+</div>
                 <strong><span id={'added' + index}></span></strong>
                 </div>
                 
@@ -87,7 +88,7 @@ const [allTranslations, setAllTranslations] = useState([])
 
             <div className={styles.resultsContainer}>          
                 <div className={styles.resultsTitle} onClick={()=>console.log(allTranslations)}>
-                {keyWord && <span>Results ({allTranslations.length}) for &quot;<strong>{keyWord}</strong>&quot;: </span>}
+                {keyWord && <span>Results ({allTranslations && allTranslations.length}) for &quot;<strong>{keyWord}</strong>&quot;{allTranslations.length > 0 && ':'} </span>}
                     </div>
                 <div className={styles.resultsOutput}>
                     {allTranslations && allTranslations.length > 0 && printTranslations()}
