@@ -1,35 +1,111 @@
+@import "../common/colors.scss";
+
 .allFlashcardsContainer {
-  margin: 20px;
+  margin: 10px 200px;
   display: flex;
   flex-wrap: wrap;
-  perspective: 1500px;
+  text-align: center;
+  justify-content: space-between;
 }
 
-.flashcardContainer{
-    margin-bottom:20px;
+.flashcardContainer {
+  text-align: center;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.flashcardNumber {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  width: 20px;
+  height: 20px;
+  font-size: smaller;
+  border-radius: 50%;
+  background-color: $flashcardResultNumber;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+}
+
+.deleteButton{
+  position: absolute;
+  height: 20px;
+  width: 20px;
+  left: 210px;
+  bottom: - 5px;
+  border: 1px solid rgb(114, 26, 26);
+  border-radius: 50%;
+  background-color: rgba(243, 27, 20, 0.301);
+  font-weight: bold;
+  font-size: larger;
+  color: rgb(114, 26, 26);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  outline: none;
+
+  &:hover{
+    background-color: rgba(243, 27, 20, 0.753);
+    cursor: pointer;
+  }
+}
+
+.title {
+  text-align: center;
+  font-size: 20px;
+  margin: 10px auto;
+}
+
+.subtitle{
+  text-align: center;
+}
+
+.emptyFlashcard {
+  width: 200px;
+  height: 100px;
+  padding: 10px;
+  margin: 10px 10px 5px 10px;
 }
 
 .flashcard {
   width: 200px;
   height: 100px;
-  border: 2px solid black;
   padding: 10px;
-  margin: 10px 10px 5px 10px;
-  transition: transform 0.8s;
-  transform-style: preserve-3d;
+  margin: 10px 10px 0px 10px;
+  perspective: 1000px;
 }
 
-.flashcard:hover {
-    transform: rotateY(180deg);
-  }
+.flashcardInner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+  -moz-backface-visibility: hidden;
+}
 
-  .back{
-    transform: rotateY(180deg);
-  }
-  .front, .back {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-    -webkit-backface-visibility: hidden; /* Safari */
-    backface-visibility: hidden;
-  }
+.flashcardInner:hover {
+  transform: rotateY(180deg);
+}
+
+.back {
+  transform: rotateY(180deg);
+}
+.front,
+.back {
+  background-color: $flashcardBackground;
+  border-radius: 10px;
+  position: absolute;
+  text-align: center;
+  padding-top: 10px;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden; /* Safari */
+  backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+}

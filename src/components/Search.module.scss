@@ -79,6 +79,25 @@
     align-items: center;
     padding: 0 2px 3px 2px;
     font-size: larger;
+    cursor: pointer;
+  }
+  .tickButton {
+    cursor: default;
+    visibility: hidden;
+    position: absolute;
+    right: -10px;
+    bottom: -5px;
+    width: 15px;
+    height: 15px;
+    font-size: smaller;
+    border: 1px solid $mainColor;
+    border-radius: 50%;
+    background-color:  rgba(75, 127, 238, 0.596);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 2px 3px 2px;
+    font-size: larger;
   }
   .word {
     font-weight: bold;

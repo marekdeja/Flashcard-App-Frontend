@@ -2,7 +2,8 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
+  Link,
+  Redirect
 } from "react-router-dom";
 import { Search } from './components/Search'
 import { Flashcards } from './components/Flashcards'
@@ -15,16 +16,20 @@ function App() {
       <Router >
         <header>
           <div className={styles.title}>
-            <div className={styles.titleText} ><Link to="/search">Flashcard Game</Link></div>
+            <div className={styles.titleText} ><Link to="/search">Flashcard App</Link></div>
           </div>
           <div className={styles.menu}>
             <Link to="/search"><div>Search</div></Link>
             <Link to="/flashcards"><div>Flashcards</div></Link>
-            <Link to="/game"><div>Game</div></Link>
+            {/* <Link to="/game"><div>Game</div></Link> */}
           </div>
+          <div className={styles.author}>by Marek Deja</div>
         </header>
 
         <Switch>
+        <Route exact path="/">
+            <Redirect to="/flashcards"/>
+          </Route>
           <Route path="/search">
             <Search />
           </Route>

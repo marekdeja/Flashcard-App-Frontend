@@ -25,20 +25,29 @@ export const Flashcards = () => {
 
     }
 
-    return <div className={styles.allFlashcardsContainer}>
-        {data.length > 0 && (
-            data.map((item, index) => <div className={styles.flashcardContainer}><div>{index}</div>
-                <div className={styles.flashcard}>
-                    <div className={styles.front}>
-                        <div dangerouslySetInnerHTML={{ __html: item.word }} />
+    return <><div className={styles.title}>Flashcards</div>
+    <div className={styles.subtitle}>You have <strong>{data.length}</strong> flashcards</div>
+        <div className={styles.allFlashcardsContainer}>
+            {data.length > 0 && (
+                data.map((item, index) => <div className={styles.flashcardContainer} key={index}>
+                    <div className={styles.flashcardNumber}>{index + 1}</div>
+                    <div className={styles.flashcard}>
+                        <div className={styles.flashcardInner}> 
+                            <div className={styles.front}>
+                                <div dangerouslySetInnerHTML={{ __html: item.word }} />
+                            </div>
+                            <div className={styles.back}>
+                                <div dangerouslySetInnerHTML={{ __html: item.translation }} />
+                            </div>
+                        </div>
                     </div>
-                    <div className={styles.back}>
-                        <div dangerouslySetInnerHTML={{ __html: item.translation }} />
-                    </div>
+                    <button className={styles.deleteButton} onClick={() => removeFlashcard(index)}>-</button>
                 </div>
-                <button onClick={() => removeFlashcard(index)}>Delete</button>
-            </div>
-            )
-        )}
-    </div>
+                )
+            )}
+            <div className={styles.emptyFlashcard}></div>
+            <div className={styles.emptyFlashcard}></div>
+            <div className={styles.emptyFlashcard}></div>
+        </div>
+    </>
 }

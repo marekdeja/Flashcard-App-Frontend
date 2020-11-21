@@ -7,20 +7,18 @@ html {
 header {
   display: flex;
   margin: 0;
-  padding: 10px 20px;
+  padding: 10px 50px;
   color: white;
   background-color: $mainColor;
 }
 .title {
-//   margin-left: 50px;
+color: white;
   width: 30%;
   transform: translate(-1%, -1%);
   font-size: 20px;
   letter-spacing: 0.1em;
-  -webkit-text-fill-color: transparent;
-  -webkit-text-stroke-width: 1px;
-  -webkit-text-stroke-color: white;
-  text-shadow: 3px 3px $secondaryColor, 4px 4px #000000;
+  
+  text-shadow:  4px 4px #000000;
   .titleText:hover {
     cursor: default;
     user-select: none;
@@ -47,9 +45,19 @@ header {
     background-color: $secondaryColor;
     border-radius: 5px;
     text-decoration: none;
-    margin: 0 10px;
+    margin: 0 20px;
     &:hover {
       background-color: $hover;
     }
   }
+}
+
+.author{
+  position: absolute;
+  top: 30px;
+  left: 200px;
+  display: flex;
+  align-items: center;
+  font-size: smaller;
+  font-style: italic;
 }
